@@ -1,303 +1,277 @@
 <!DOCTYPE html>
-<html lang="bn" translate="no">
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<title>Service Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Private Chat</title>
+    
+    <link rel="icon" type="image/webp" href="gg1x.webp">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-<style>
-body{margin:0;font-family:Arial;background:#f5f5f5}
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
 
-/* TOP LOADING */
-#topLoading{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-background:black;
-color:white;
-text-align:center;
-padding:10px;
-z-index:9999;
-font-weight:bold;
-}
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
 
-/* marquee */
-.marquee{background:#fff;border:1px solid #000;overflow:hidden}
-.marquee p{color:red;padding:10px;white-space:nowrap;animation:scroll 15s linear infinite}
-@keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+        .video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-/* images */
-.image-box{display:flex;gap:10px;padding:10px}
-.image-box img{width:50%;aspect-ratio:4/6;border-radius:10px}
+        .content-overlay {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px; 
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            align-items: center;
+            text-align: center;
+            padding: 20px 25px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4); 
+        }
 
-/* title */
-.section-title{padding:10px;border-bottom:3px solid red;margin:10px}
+        .top-section {
+            width: 100%;
+            margin-top: 10px;
+        }
 
-/* service */
-.service-box{background:pink;border:1px solid black;margin:10px;padding:10px;border-radius:10px}
-.service-item{display:flex;justify-content:space-between;margin:10px 0;cursor:pointer}
+        .logo-banner {
+            width: 90%;       
+            max-width: 380px;
+            height: auto;
+            margin-bottom: 5px;
+            filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.7));
+        }
 
-/* shake */
-.shake{animation:shake .4s}
-@keyframes shake{
-0%{transform:translateX(0)}
-25%{transform:translateX(-5px)}
-50%{transform:translateX(5px)}
-75%{transform:translateX(-5px)}
-100%{transform:translateX(0)}
-}
+        .powered-by {
+            font-size: 15px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            letter-spacing: 0.5px;
+        }
 
-/* messenger */
-.messenger-box{display:none;background:#fff;margin:10px;padding:10px;border-radius:10px}
-.input-area{display:none;margin-top:10px}
-input[type=text]{width:100%;padding:10px}
+        .locanto-lo { color: #007bff; }
+        .locanto-can { color: #ffaa44; }
+        .locanto-to { color: #ff5500; }
 
-/* button */
-.buy-btn{width:90%;margin:20px auto;padding:15px;background:#ff0066;color:white;border:none;border-radius:30px;font-size:18px}
+        .middle-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding: 20px 0;
+        }
 
-/* payment */
-#paymentPage{display:none;padding:15px}
+        .headline {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9), -2px -2px 5px rgba(0, 0, 0, 0.9);
+        }
 
-.payment-card{
-background:#ff0055;
-color:white;
-padding:15px;
-border-radius:15px;
-}
+        .countdown-box {
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.8); 
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        }
 
-.white-box{
-background:#fff;
-color:black;
-border-radius:15px;
-padding:15px;
-margin-top:15px;
-}
+        #timer {
+            font-weight: 700;
+            color: #ff3333;
+        }
 
-.copy{
-color:blue;
-cursor:pointer;
-margin-left:10px;
-}
+        .cta-button {
+            background: linear-gradient(135deg, #ff6600, #ff3300);
+            color: white;
+            border: none;
+            padding: 16px 0;
+            width: 90%; 
+            max-width: 320px;
+            font-size: 22px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0px 6px 25px rgba(255, 51, 0, 0.6);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
 
-.amount{color:green}
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 30px rgba(255, 51, 0, 0.9);
+        }
 
-.submit-btn{
-margin-top:15px;
-width:100%;
-padding:15px;
-background:green;
-color:white;
-border:none;
-border-radius:10px;
-font-size:18px;
-}
+        .buffering-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-/* SUCCESS */
-#successMsg{
-display:none;
-background:#d4edda;
-color:#155724;
-padding:15px;
-border-radius:10px;
-margin-top:10px;
-text-align:center;
-font-weight:bold;
-}
-</style>
+        .spinner {
+            width: 65px;
+            height: 65px;
+            border: 6px solid #333;
+            border-top: 6px solid #ff6600;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
 
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .buffering-text-main {
+            color: white;
+            font-size: clamp(12px, 4.3vw, 17px);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            padding: 0 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .buffering-text-sub {
+            color: #ffff00;
+            font-size: clamp(11px, 4vw, 16px);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap; 
+            padding: 0 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: 12px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<div id="topLoading">Please Wait...</div>
+    <div class="video-container">
+        <video autoplay loop muted playsinline class="video-background">
+            <source src="vid1x.mp4" type="video/mp4">
+            আপনার ব্রাউজারটি ভিডিও সাপোর্ট করছে না।
+        </video>
+    </div>
 
-<!-- MAIN -->
-<div id="mainPage">
+    <div class="content-overlay">
+        
+        <div class="top-section">
+            <img src="bb1x.webp" alt="Logo Banner" class="logo-banner">
+            <div class="powered-by">
+                powered by <span class="locanto-lo">Lo</span><span class="locanto-can">can</span><span class="locanto-to">to</span>
+            </div>
+        </div>
 
-<div class="marquee">
-<p>আমার নাম সুরভী 😚 আমি ভিডিও কলে রেগুলার সার্ভিস দিয়ে থাকি 😘 সার্ভিস নিতে নিচে থাকা "আপনার মেসেঞ্জার এবং কত মিনিট সার্ভিস নিবেন তা সম্পূর্ণ করুন"</p>
-</div>
+        <div class="middle-section">
+            <div class="headline">
+                Thousands Of <span class="locanto-lo">Lo</span><span class="locanto-can">can</span><span class="locanto-to">to</span> Single Girls Playing Their Holes By Their Own Fingers.
+            </div>
 
-<div class="image-box">
-<img src="https://via.placeholder.com/300x450">
-<img src="https://via.placeholder.com/300x450">
-</div>
+            <div class="countdown-box">
+                Free Registration End: <span id="timer">00:39:46</span>
+            </div>
 
-<div class="section-title">কতক্ষণ সার্ভিস নিবেন বাছাই করুন:</div>
+            <button class="cta-button" onclick="startBuffering()">Get a Free Hole!</button>
+        </div>
+        
+        <div></div>
 
-<div class="service-box" id="serviceBox">
-<div class="service-item" onclick="selectService(150,0)">
-<span>৩ মিনিট - ১৫০ টাকা</span>
-<input type="radio" name="service">
-</div>
+    </div>
 
-<div class="service-item" onclick="selectService(250,1)">
-<span>৫ মিনিট - ২৫০ টাকা</span>
-<input type="radio" name="service">
-</div>
+    <div class="buffering-overlay" id="bufferScreen">
+        <div class="spinner"></div>
+        <div class="buffering-text-main">Complete All Steps For Your Free Hole!</div>
+        <div class="buffering-text-sub" id="secondText">Now You Are Ready To Fuck Hole....</div>
+    </div>
 
-<div class="service-item" onclick="selectService(400,2)">
-<span>১০ মিনিট - ৪০০ টাকা</span>
-<input type="radio" name="service">
-</div>
-</div>
+    <script>
+        const affiliateLink = "https://dghhgdb.kftln.com/s/4eab6e8c9bf26?sub1=vvv&subsource=vvv";
 
-<div class="messenger-box" id="messengerBox">
-<div class="section-title">আপনার মেসেঞ্জার বাছাই করুন:</div>
+        let totalSeconds = (39 * 60) + 46; 
 
-<div onclick="selectMessenger('WhatsApp',0)">
-<input type="radio" name="msg"> WhatsApp
-</div>
+        const timerElement = document.getElementById('timer');
 
-<div onclick="selectMessenger('Telegram',1)">
-<input type="radio" name="msg"> Telegram
-</div>
+        setInterval(() => {
+            if (totalSeconds <= 0) {
+                totalSeconds = (39 * 60) + 46; 
+            }
 
-<div onclick="selectMessenger('Imo',2)">
-<input type="radio" name="msg"> Imo
-</div>
+            let hours = Math.floor(totalSeconds / 3600);
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+            let seconds = totalSeconds % 60;
 
-<div class="input-area" id="inputArea">
-<p id="inputLabel" style="color:red;"></p>
-<input type="text" id="userInput">
-</div>
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-</div>
+            timerElement.textContent = hours + ":" + minutes + ":" + seconds;
+            totalSeconds--;
+        }, 1000);
 
-<button class="buy-btn" onclick="buyService()">সার্ভিস কিনুন</button>
+        function startBuffering() {
+            const bufferScreen = document.getElementById('bufferScreen');
+            const secondText = document.getElementById('secondText');
+            
+            secondText.style.display = 'none';
+            bufferScreen.style.display = 'flex'; 
 
-</div>
+            setTimeout(() => {
+                secondText.style.display = 'block';
+            }, 2000); 
 
-<!-- PAYMENT -->
-<div id="paymentPage">
-
-<h1 style="text-align:center">Payment</h1>
-
-<div class="payment-card">
-
-<p>অনুগ্রহ করে একই পরিমাণ স্থানান্তর করুন এবং ব্যর্থ এড়াতে সঠিক TxnID পূরণ করুন</p>
-
-<p style="margin-top:10px">
-এই বিকাশ পার্সোনাল নাম্বারে সেন্ড মানি করুন
-</p>
-
-<div class="white-box">
-
-<p style="display:flex;align-items:center;gap:5px;">
-<img src="https://your-bkash-logo.png" width="20">
-<span style="color:red;font-weight:bold;">bKash</span>
-</p>
-
-<p>
-সংখ্যা: 
-<span id="bkashNumber">01936484407</span>
-<span class="copy" onclick="copyText()">📋</span>
-</p>
-
-<p>
-পরিমাণ: 
-<span class="amount" id="amountText"></span>
-</p>
-
-</div>
-
-<p style="margin-top:10px">লেনদেন আইডি লিখুন</p>
-
-<input type="text" style="width:100%;padding:10px" placeholder="TxnID দিন">
-
-<div style="margin-top:15px;background:#fff;padding:10px;border-radius:10px;color:black">
-<p id="userInfoText"></p>
-</div>
-
-<button class="submit-btn" onclick="submitOrder()">জমা দিন</button>
-
-<div id="successMsg">✅ আপনার অর্ডার সফলভাবে সাবমিট হয়েছে!</div>
-
-</div>
-
-</div>
-
-<script>
-
-let selectedAmount=0;
-let messengerName="";
-let userValue="";
-
-function selectService(amount,i){
-document.getElementsByName("service")[i].checked=true;
-selectedAmount=amount;
-document.getElementById("messengerBox").style.display="block";
-}
-
-function selectMessenger(name,i){
-document.getElementsByName("msg")[i].checked=true;
-messengerName=name;
-document.getElementById("inputArea").style.display="block";
-
-let text=name+" নাম্বার/ইউজারনেম দিন";
-document.getElementById("inputLabel").innerText=text;
-}
-
-function buyService(){
-
-let input=document.getElementById("userInput").value;
-
-if(selectedAmount==0){
-shake("serviceBox");
-alert("সার্ভিস সিলেক্ট করুন");
-return;
-}
-
-if(messengerName==""){
-shake("messengerBox");
-alert("মেসেঞ্জার সিলেক্ট করুন");
-return;
-}
-
-if(input.trim()==""){
-shake("inputArea");
-alert("তথ্য দিন");
-return;
-}
-
-userValue=input;
-
-// TOP LOADING
-document.getElementById("topLoading").style.display="block";
-
-setTimeout(()=>{
-document.getElementById("topLoading").style.display="none";
-document.getElementById("mainPage").style.display="none";
-document.getElementById("paymentPage").style.display="block";
-
-document.getElementById("amountText").innerText=selectedAmount+" টাকা";
-
-document.getElementById("userInfoText").innerText=
-"আপনার দেওয়া "+messengerName+" ("+userValue+") এই সার্ভিসের জন্য আপনার পেমেন্ট কনফার্ম করার ৫ মিনিটের মধ্যে আপনাকে আপনার দেওয়া মেসেঞ্জারে মেসেজ দেওয়া হবে। ধন্যবাদ";
-
-},2000);
-
-}
-
-function submitOrder(){
-document.getElementById("successMsg").style.display="block";
-}
-
-function shake(id){
-let el=document.getElementById(id);
-el.classList.add("shake");
-setTimeout(()=>el.classList.remove("shake"),400);
-}
-
-function copyText(){
-let text=document.getElementById("bkashNumber").innerText;
-navigator.clipboard.writeText(text);
-alert("নাম্বার কপি হয়েছে");
-}
-
-</script>
+            setTimeout(() => {
+                window.location.href = affiliateLink; 
+            }, 3000); 
+        }
+    </script>
 
 </body>
 </html>
